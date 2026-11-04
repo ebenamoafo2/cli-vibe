@@ -1,12 +1,12 @@
 /*
 Copyright © 2026 Ebenezer Ofori
-
 */
 package cmd
 
 import (
 	"fmt"
 
+	"github.com/ebenamoafo/cli-vibe/git"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +21,12 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("commit called")
+		res, err := git.StagedDiff(cmd.Context())
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		fmt.Println(res)
 	},
 }
 
